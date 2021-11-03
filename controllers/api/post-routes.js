@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
   router.post('/', async(req, res) => {
     try{
       const newPost = await Post.create({
-        author: req.body.username,
+        author: req.body.author,
         title: req.body.title,
         text: req.body.text
       });

@@ -1,6 +1,7 @@
 <section class="card">
     <header>{{post.title}}</header>
     <p>{{post.text}}</p>
+    <p>By - {{post.author}}</p>
     <h2>Comments:</h2>
     {{#each post.comments as |comment|}}
     {{> comment-details}}

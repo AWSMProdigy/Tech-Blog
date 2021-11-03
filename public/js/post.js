@@ -1,13 +1,13 @@
 const postHandler = async (event) => {
     event.preventDefault();
-    console.log("KEKW");
-    const title = document.querySelector('#title-enter');
-    const text = document.querySelector('#text-enter');
+    const title = document.querySelector('#title-enter').value.trim();
+    const text = document.querySelector('#text-enter').value.trim();
+    const author = document.querySelector('#userName').innerHTML;
 
     if(title && text){
         const response = await fetch('/api/posts/', {
             method: 'POST',
-            body: JSON.stringify({ title, text }),
+            body: JSON.stringify({ author, title, text }),
             headers: { 'Content-Type': 'application/json' },
         });
 

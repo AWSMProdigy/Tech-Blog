@@ -1,9 +1,7 @@
 <section class="container">
   <!-- If the user is logged in, render the gallery content -->
   <section class="flex-row justify-center">
-    <h1 id="userName">
-        {{username}}
-    </h1>
+    <h1 id="userName">{{username}}</h1>
   </section>
     {{#each posts as |post|}}
     {{> post-details}}
