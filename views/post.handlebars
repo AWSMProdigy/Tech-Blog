@@ -1,10 +1,21 @@
 <section class="card">
-    <header>{{post.title}}</header>
+    <header>{{post.title}}<span id="postID" hidden>{{post.id}}</span></header>
     <p>{{post.text}}</p>
     <p>By - {{post.author}}</p>
     <h2>Comments:</h2>
     {{#each post.comments as |comment|}}
     {{> comment-details}}
     {{/each}}
+    <form class="form comment-form">
+      <div class="form-group">
+        <label for="text-signup">Comment:</label>
+        <input class="form-input" type="text" id="text-enter" />
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">Create comment</button>
+      </div>
+    </form>
   </a>
 </section>
+
+<script src="../js/handleComment.js"></script>

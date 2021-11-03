@@ -3,12 +3,12 @@ const { Comment } = require('../models');
 const commentData = [
   {
     author: 'BouttaBeBanned',
-    text: 'Dread is poggers',
+    text: 'DAS ON GOD',
     post_id: 1
   },
   {
     author: 'Beau Chewning',
-    text: 'Kyle kinda has a phat cock',
+    text: 'DAS ON GOD',
     post_id: 2
   },
 ];
