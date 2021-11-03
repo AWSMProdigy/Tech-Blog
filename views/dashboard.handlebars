@@ -1,0 +1,12 @@
+<section class="container">
+  <!-- If the user is logged in, render the gallery content -->
+{{#if loggedIn}}
+  <section class="flex-row justify-center">
+    {{username}}
+  </section>
+    {{#each posts as |post|}}
+    {{> post-details}}
+    {{/each}}
+</section>
+<!-- Otherwise, provide a link to login -->
+{{/if}}

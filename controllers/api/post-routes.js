@@ -12,6 +12,7 @@ router.get('/', async (req, res) => {
       res.render('homepage', {
         posts,
         loggedIn: req.session.loggedIn,
+        id = req.session.id
       });
     } catch (err) {
       console.log(err);
@@ -49,6 +50,7 @@ router.get('/', async (req, res) => {
 
       req.session.save(() => {
         req.session.loggedIn = true;
+        id = req.session.id;
         res.status(200).json(newPost);
       });
     }

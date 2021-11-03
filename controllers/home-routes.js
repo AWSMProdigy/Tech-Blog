@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post, Comment } = require('../models');
+const { Post, Comment, User } = require('../models');
 
 // GET all galleries for homepage
 router.get('/', async (req, res) => {
@@ -12,6 +12,7 @@ router.get('/', async (req, res) => {
 
     res.render('homepage', {
       loggedIn: req.session.loggedIn,  
+      id: req.session.id,
       posts,
     });
   } catch (err) {
@@ -41,11 +42,41 @@ router.get('/post/:id', async (req, res) => {
         });
 
         const post = dbPost.get({ plain: true });
-        res.render('post', {post, loggedIn: req.session.loggedIn})
+        res.render('post', {
+          post, 
+          loggedIn: req.session.loggedIn,
+          user: req.session.id,
+        })
     }
     catch (err){
-
+      console.log(err);
+      res.status(500).json(err);
     }
+})
+
+router.get('/dashboard', (req, res) => {
+  if(!req.session.loggedIn){
+    res.redirect('/login');
+    return;
+  }
+
+  const me = await User.findByPk(req.session.id);
+
+  const dbMyPosts = await Post.findAll({
+    where: {
+      username = me.username
+    }
+  })
+
+  const posts = dbMyPosts.map((posts) =>
+      posts.get({ plain: true })
+    );
+
+  res.render('dashboard', {
+    loggedIn: req.session.loggedIn,  
+    id: req.session.id,
+    posts
+  });
 })
 
   module.exports = router;
