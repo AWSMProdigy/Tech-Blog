@@ -39,4 +39,23 @@ router.get('/', async (req, res) => {
     }
   });
 
+  router.post('/', async(req, res) => {
+    try{
+      const newPost = await Post.create({
+        author: req.body.username,
+        title: req.body.title,
+        text: req.body.text
+      });
+
+      req.session.save(() => {
+        req.session.loggedIn = true;
+        res.status(200).json(newPost);
+      });
+    }
+    catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  })
+
   module.exports = router;
