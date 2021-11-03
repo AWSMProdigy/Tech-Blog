@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
       res.render('homepage', {
         posts,
         loggedIn: req.session.loggedIn,
-        id = req.session.id
+        user_id: req.session.user_id
       });
     } catch (err) {
       console.log(err);
@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
   
       const post = dbPostData.get({ plain: true });
       // Send over the 'loggedIn' session variable to the 'gallery' template
-      res.render('post', { post, loggedIn: req.session.loggedIn });
+      res.render('post', { post, loggedIn: req.session.loggedIn, user_id: req.session.user_id });
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
@@ -50,7 +50,7 @@ router.get('/', async (req, res) => {
 
       req.session.save(() => {
         req.session.loggedIn = true;
-        id = req.session.id;
+        user_id = req.session.user_id;
         res.status(200).json(newPost);
       });
     }

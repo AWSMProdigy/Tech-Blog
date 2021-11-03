@@ -1,12 +1,26 @@
 <section class="container">
   <!-- If the user is logged in, render the gallery content -->
-{{#if loggedIn}}
   <section class="flex-row justify-center">
-    {{username}}
+    <h1 id="userName">
+        {{username}}
+    </h1>
   </section>
     {{#each posts as |post|}}
     {{> post-details}}
     {{/each}}
 </section>
-<!-- Otherwise, provide a link to login -->
-{{/if}}
+    <form class="form post-form">
+      <div class="form-group">
+        <label for="title-signup">Title:</label>
+        <input class="form-input" type="text" id="title-enter" />
+      </div>
+      <div class="form-group">
+        <label for="text-signup">Text:</label>
+        <input class="form-input" type="text" id="text-enter" />
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">Create post</button>
+      </div>
+    </form>
+
+<script src="./js/post.js"></script>

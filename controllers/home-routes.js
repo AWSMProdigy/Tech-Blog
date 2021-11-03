@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
 
     res.render('homepage', {
       loggedIn: req.session.loggedIn,  
-      id: req.session.id,
+      user_id: req.session.user_id,
       posts,
     });
   } catch (err) {
@@ -45,7 +45,7 @@ router.get('/post/:id', async (req, res) => {
         res.render('post', {
           post, 
           loggedIn: req.session.loggedIn,
-          user: req.session.id,
+          user_id: req.session.user_id,
         })
     }
     catch (err){
@@ -54,17 +54,17 @@ router.get('/post/:id', async (req, res) => {
     }
 })
 
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', async (req, res) => {
+  try{
   if(!req.session.loggedIn){
     res.redirect('/login');
     return;
   }
-
-  const me = await User.findByPk(req.session.id);
+  const me = await User.findByPk(req.session.user_id);
 
   const dbMyPosts = await Post.findAll({
     where: {
-      username = me.username
+      author: me.username
     }
   })
 
@@ -73,10 +73,17 @@ router.get('/dashboard', (req, res) => {
     );
 
   res.render('dashboard', {
+    username: me.username,
     loggedIn: req.session.loggedIn,  
-    id: req.session.id,
+    user_id: req.session.user_id,
     posts
   });
+
+  }
+  catch (err){
+    console.log(err);
+    res.status(500).json(err);
+  }
 })
 
   module.exports = router;
